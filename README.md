@@ -26,12 +26,43 @@ Flex
 GCC (o compilador equivalente)
 Entorno: Flex Windows (Lex and Yacc)
 
-Instrucciones de uso
-1. Generar lex.yy.c con Flex
-Abrir el archivo lexer.l en Flex Windows y usar la opción
-Tools → Run Flex / Lex-Flex
-Esto generará el archivo lex.yy.c.
+Archivos necesarios
 
-Ejemplo de salida
-Para la línea:
-globalA = 3;
+El proyecto debe contener los siguientes archivos en la misma carpeta:
+
+lexer.l — Archivo del analizador léxico
+
+lex.yy.c — Archivo generado por Flex
+
+lexer.exe — Ejecutable compilado
+
+input.c — Archivo de prueba que será analizado
+
+El analizador está configurado para leer automáticamente el archivo input.c.
+
+Cómo compilar el analizador léxico
+
+Usando Flex Windows (Lex and Yacc):
+
+Abrir lexer.l en el programa
+
+Menú Build → Compile Lex
+
+Esto genera lex.yy.c y lexer.exe
+
+Usando GCC desde consola:
+flex lexer.l
+gcc lex.yy.c -o lexer.exe
+
+Cómo ejecutar el analizador léxico
+
+Abrir la carpeta donde está lexer.exe
+
+Escribir en la barra de ruta: cmd
+
+Presionar ENTER
+
+Ejecutar:
+lexer.exe
+
+Funcionamiento del analizador
