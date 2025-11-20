@@ -1,0 +1,70 @@
+%{
+
+#include <stdio.h>
+#include <stdlib.h>
+
+FILE *yyin;
+
+void printToken(char *type, char *text) {
+    printf("<%s, %s>\n", type, text);
+}
+
+%}
+
+%%
+
+"int"           { printToken("RESERVED", yytext); }
+"float"         { printToken("RESERVED", yytext); }
+"double"        { printToken("RESERVED", yytext); }
+"char"          { printToken("RESERVED", yytext); }
+"void"          { printToken("RESERVED", yytext); }
+"short"         { printToken("RESERVED", yytext); }
+"return"        { printToken("RESERVED", yytext); }
+"include"       { printToken("RESERVED", yytext); }
+"define"        { printToken("RESERVED", yytext); }
+
+[A-Za-z_][A-Za-z0-9_]*   { printToken("ID", yytext); }
+
+[0-9]+                   { printToken("NUMBER", yytext); }
+
+"++"            { printToken("OPERATOR", yytext); }
+"="             { printToken("OPERATOR", yytext); }
+"+"             { printToken("OPERATOR", yytext); }
+"-"             { printToken("OPERATOR", yytext); }
+"*"             { printToken("OPERATOR", yytext); }
+"/"             { printToken("OPERATOR", yytext); }
+
+"("             { printToken("DELIM", yytext); }
+")"             { printToken("DELIM", yytext); }
+"{"             { printToken("DELIM", yytext); }
+"}"             { printToken("DELIM", yytext); }
+";"             { printToken("DELIM", yytext); }
+","             { printToken("DELIM", yytext); }
+
+"/*"([^*]|\*+[^*/])*\*+"/"   { printToken("COMMENT", yytext); }
+"//".*                       { printToken("COMMENT", yytext); }
+
+[ \t\r]+                { /* ignorar */ }
+\n                     { /* ignorar */ }
+
+.                      { printToken("UNKNOWN", yytext); }
+
+%%
+
+int yywrap() {
+    return 1;
+}
+
+int main() {
+
+    yyin = fopen("input.c", "r");
+    if (!yyin) {
+        printf("ERROR: No se pudo abrir input.c\n");
+        return 1;
+    }
+
+    yyrestart(yyin);   
+
+    yylex();
+    return 0;
+}
