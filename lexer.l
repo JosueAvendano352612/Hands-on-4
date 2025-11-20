@@ -1,0 +1,53 @@
+%option noyywrap
+%{
+#include <stdio.h>
+#include <string.h>
+
+void printToken(const char* type, const char* lexeme) {
+    printf("<%s, \"%s\">\n", type, lexeme);
+}
+%}
+
+%%
+
+"int"           { printToken("RESERVED", yytext); }
+"float"         { printToken("RESERVED", yytext); }
+"double"        { printToken("RESERVED", yytext); }
+"char"          { printToken("RESERVED", yytext); }
+"void"          { printToken("RESERVED", yytext); }
+"short"         { printToken("RESERVED", yytext); }
+"return"        { printToken("RESERVED", yytext); }
+"include"       { printToken("RESERVED", yytext); }
+"define"        { printToken("RESERVED", yytext); }
+
+[A-Za-z_][A-Za-z0-9_]*   { printToken("ID", yytext); }
+
+[0-9]+                   { printToken("NUMBER", yytext); }
+
+"++"            { printToken("OPERATOR", yytext); }
+"="             { printToken("OPERATOR", yytext); }
+"+"             { printToken("OPERATOR", yytext); }
+"-"             { printToken("OPERATOR", yytext); }
+"*"             { printToken("OPERATOR", yytext); }
+"/"             { printToken("OPERATOR", yytext); }
+
+"("             { printToken("DELIM", yytext); }
+")"             { printToken("DELIM", yytext); }
+"{"             { printToken("DELIM", yytext); }
+"}"             { printToken("DELIM", yytext); }
+";"             { printToken("DELIM", yytext); }
+","             { printToken("DELIM", yytext); }
+
+"/*"([^*]|\*+[^*/])*\*+"/"   { printToken("COMMENT", yytext); }
+"//".*                       { printToken("COMMENT", yytext); }
+
+[ \t\n\r]+                  { /* ignorar */ }
+
+.                           { printToken("UNKNOWN", yytext); }
+
+%%
+
+int main() {
+    yylex();
+    return 0;
+}
