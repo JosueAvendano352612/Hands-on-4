@@ -26,43 +26,47 @@ Flex
 GCC (o compilador equivalente)
 Entorno: Flex Windows (Lex and Yacc)
 
-Archivos necesarios
+# Analizador Léxico en Flex
+Proyecto académico realizado por Josue Avendaño Galarza.
 
-El proyecto debe contener los siguientes archivos en la misma carpeta:
+## 1. Archivos necesarios
+El proyecto requiere los siguientes archivos en la misma carpeta:
 
-lexer.l — Archivo del analizador léxico
-
-lex.yy.c — Archivo generado por Flex
-
-lexer.exe — Ejecutable compilado
-
-input.c — Archivo de prueba que será analizado
+- lexer.l
+- lex.yy.c
+- lexer.exe
+- input.c
 
 El analizador está configurado para leer automáticamente el archivo input.c.
 
-Cómo compilar el analizador léxico
+## 2. Cómo compilar el analizador léxico
 
-Usando Flex Windows (Lex and Yacc):
+### Usando Flex Windows (Lex and Yacc)
+1. Abrir lexer.l en el programa
+2. Menú Build → Compile Lex
+3. Se generan los archivos:
+   - lex.yy.c
+   - lexer.exe
 
-Abrir lexer.l en el programa
+### Usando consola con GCC
 
-Menú Build → Compile Lex
+## 3. Cómo ejecutar el analizador léxico
+1. Abrir la carpeta donde está lexer.exe
+2. En la barra de ruta del explorador escribir:
+3. Presionar ENTER
+4. Ejecutar:
 
-Esto genera lex.yy.c y lexer.exe
+## 4. Funcionamiento del analizador
+El analizador:
 
-Usando GCC desde consola:
-flex lexer.l
-gcc lex.yy.c -o lexer.exe
+- Abre automáticamente input.c
+- Lee y analiza línea por línea
+- Identifica y clasifica tokens
+- Imprime cada token en el formato:
 
-Cómo ejecutar el analizador léxico
-
-Abrir la carpeta donde está lexer.exe
-
-Escribir en la barra de ruta: cmd
-
-Presionar ENTER
-
-Ejecutar:
-lexer.exe
-
-Funcionamiento del analizador
+### Ejemplo de salida:
+<RESERVED, int>
+<ID, globalA>
+<DELIM, ;>
+<OPERATOR, =>
+<NUMBER, 3>
